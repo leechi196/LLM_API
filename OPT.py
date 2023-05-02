@@ -1,5 +1,5 @@
 import transformers
-from transformers import AutoModelForCausalLM
+from transformers import OPTForCausalLM
 from transformers import AutoTokenizer
 from datasets import load_dataset
 
@@ -17,14 +17,14 @@ dataset = load_dataset("cnn_dailymail", '3.0.0')
 # print(tokenizer.decode(outputs[0]))
 
 def generateOutputs(dataset):
-    model = AutoModelForCausalLM.from_pretrained("bigscience/bloomz-7b1")
-    tokenizer = AutoTokenizer.from_pretrained("bigscience/bloomz-7b1")
+    model = OPTForCausalLM.from_pretrained("facebook/opt-6.7b")
+    tokenizer = AutoTokenizer.from_pretrained("facebook/opt-6.7b")
     outputs = []
     for i in range(len(dataset)):
         context = dataset[i]
-        inputs = tokenizer.encode(context, return_tensors="pt")
-        output = model.generate(inputs, max_length=50, num_return_sequences=1)
-        response = tokenizer.decode(output[0])
+        inputs = tokenizer(context, return_tensors="pt")
+        output = model.generate(inputs.input_ids, max_length=50, num_return_sequences=1)
+        response = tokenizer.batch_decode(output, skip_special_tokens=True, clean_up_tokenization_spaces=False)[0]
         outputs.append(response)
     return outputs
 a = ["Summarize sentence: 'Meta just suffered a major Facebook ad glitch that has advertisers asking about refunds'"]
