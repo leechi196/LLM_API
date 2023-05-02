@@ -33,5 +33,5 @@ def generateOutputs(dataset):
         output = request_data(data)
         outputs.append(output)
     return outputs
-a = ["Summarize it: <Meta just suffered a major Facebook ad glitch that has advertisers asking about refunds>"]
+a = ["Summarize it <> <Meta just suffered a major Facebook ad glitch that has advertisers asking about refunds.>"]
 print(generateOutputs(a)[0])

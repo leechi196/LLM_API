@@ -27,7 +27,7 @@ def generateOutputs(dataset):
         response = tokenizer.batch_decode(output, skip_special_tokens=True, clean_up_tokenization_spaces=False)[0]
         outputs.append(response)
     return outputs
-a = ["Summarize sentence: 'Meta just suffered a major Facebook ad glitch that has advertisers asking about refunds'"]
+a = ["Summarize it <> <Meta just suffered a major Facebook ad glitch that has advertisers asking about refunds.>"]
 print(generateOutputs(a)[0])
 #
 
